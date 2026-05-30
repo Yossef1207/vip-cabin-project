@@ -21,3 +21,7 @@ Compile with pdfLaTeX + BibTeX.
 ## Language
 
 The report content is in English so it can be handed over in a professional technical format.
+
+## Compile Latex Code
+
+"$env:LOCALAPPDATA\Programs\MiKTeX\miktex\bin\x64\pdflatex.exe" -interaction=nonstopmode -halt-on-error main.tex

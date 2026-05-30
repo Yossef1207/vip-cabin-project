@@ -1,1 +1,69 @@
 \chapter{Related Work}
+
+\section{Problem Context}
+The InnovAero competition frames cabin acoustics as a practical systems-engineering problem rather than a purely theoretical signal-processing exercise. For a VIP aircraft interior, the objective is not simply to reduce overall sound pressure levels, but to improve perceived acoustic comfort under strong constraints on weight, maintenance, certification, reliability, and available installation volume. These constraints favor solutions that combine established acoustic engineering with computationally efficient control algorithms \cite{lht2026task,parkerWhitepaper}.
+
+The related literature shows that cabin noise reduction is usually approached through one of three routes: passive treatments, active control, or hybrid architectures. Passive measures are robust and low-risk, but they are limited in low-frequency performance and often add mass. Active methods can target the dominant tonal or quasi-stationary components more efficiently, yet they introduce dependency on sensors, reference signals, actuator placement, and controller stability. Hybrid concepts attempt to exploit the strengths of both approaches \cite{liu2006passive,parkerWhitepaper}.
+
+\section{Active Noise Control Fundamentals}
+Active noise control (ANC) is the central method family for low-frequency acoustic attenuation in confined environments. The classic feedforward ANC architecture uses a reference signal correlated with the disturbance, a secondary path from loudspeaker to error microphone, and an adaptive filter to generate anti-noise. Standard references describe the filtered-x least mean squares (FxLMS) family as the canonical implementation because it is computationally simple and robust enough for practical adaptive control \cite{elliott1993active,kuo1999active,nelson1992active}.
+
+In compact form, the controller seeks the coefficient vector $\bm{w}$ that minimizes the mean square error
+\[
+J = \mathbb{E}\{e^2(n)\},
+\]
+where the error $e(n)$ is measured at the control point after acoustic propagation through the secondary path. In practice, the controller update must account for the dynamics of the loudspeaker, amplifier, enclosure, and cabin geometry, because inaccurate secondary-path modelling quickly degrades stability and performance \cite{kuo1999active}.
+
+For aircraft applications, the literature repeatedly emphasizes that ANC is most effective at low frequencies where passive treatments are less efficient. This makes it suitable for engine-order noise, ventilation-related tonal components, and localized cabin resonances. However, broad spatial attenuation across an occupied cabin remains difficult because the acoustic field is nonuniform and the number of independently controllable zones is limited by hardware and computational cost \cite{johansson2015active,misol2023design}.
+
+\section{Aircraft-Cabin-Specific Constraints}
+The aircraft cabin is a strongly coupled acoustic-structural environment. Seats, trim panels, sidewalls, floor panels, and overhead monuments all contribute to the final sound field. In contrast to laboratory ANC test benches, a cabin contains many secondary paths and reflecting surfaces, and the disturbance spectrum is shaped by engines, airflow, structure-borne transmission, and interior furnishing. These characteristics create an implementation problem in which the acoustic model is only partially known and operational variability is high \cite{kletschkowski2020insights,johansson2015active}.
+
+This context has two important implications for a Lufthansa Technik-style design review. First, the control strategy must be modular so that it can be installed around premium seating or localized cabin zones without requiring a full aircraft-wide retrofit. Second, the solution should be tolerant to model mismatch and sensor drift, because maintenance access and calibration intervals in operational service are limited. The literature therefore favors localized control topologies over globally centralized ones when the target is a practical retrofit solution \cite{dimino2022active,mylonas2023low}.
+
+\section{Localized and Seat-Level Control}
+Recent work has moved ANC closer to the passenger rather than attempting to control the entire cabin volume. Seat-level and headrest-based approaches position error sensors and actuators near the listener, which reduces the number of required control points and improves the perceptual relevance of the cancellation zone. Studies on adjacent-seat control and headrest-based virtual sensing report that localized architectures can achieve meaningful perceived improvement with relatively low computational complexity \cite{dimino2022active,mylonas2024virtual,mylonas2023low}.
+
+Virtual sensing is especially relevant when physical microphones cannot be placed exactly at the ear location. In these systems, a model estimates the pressure at a desired point from measurements at accessible positions. That approach is attractive in VIP cabins because it preserves the interior design while still providing a controllable acoustic objective. The main trade-off is the need for a reliable transfer-function estimate between the measured and virtual locations \cite{mylonas2024virtual,misol2020sidewall}.
+
+\section{Passive, Active, and Hybrid Concepts}
+Passive and active methods should not be treated as competing absolutes. The literature increasingly presents them as complementary layers in a broader acoustic design. Passive trim can suppress structure-borne transmission and attenuate higher-frequency content, while active systems focus on the low-frequency residual that passive systems leave behind. This hybrid perspective is particularly suitable for aviation, where mass and certification pressure prevent purely passive overdesign \cite{liu2006passive,parkerWhitepaper}.
+
+\begin{table}[htbp]
+	\centering
+	\caption{High-level comparison of cabin noise-control strategies}
+	\label{tab:comparison}
+	\begin{tabularx}{\textwidth}{@{}lXX@{}}
+		\toprule
+		Strategy & Strengths & Limitations \\
+		\midrule
+		Passive treatment & Simple, robust, certification-friendly & Mass penalty and weak low-frequency performance \\
+		Active control & Strong low-frequency attenuation, adaptable & Requires sensors, actuators, and stable modelling \\
+		Hybrid approach & Balanced trade-off, system-level optimization & Higher integration complexity \\
+		\bottomrule
+	\end{tabularx}
+\end{table}
+
+Work on sidewall panels, trim panels, and hybrid structures shows that aircraft interior noise control can be embedded into cabin furniture and architectural elements. This is useful for premium cabins, where the acoustic solution must remain visually unobtrusive. The strongest results in the literature usually combine structural design, sensor placement strategy, and control-law tuning rather than relying on a single component in isolation \cite{misol2020sidewall,wang2025deep}.
+
+\section{Data-Driven and Computational Approaches}
+More recent publications explore deep-learning-assisted or otherwise data-driven architectures for cabin noise control. These methods are promising where the acoustic environment is complex and the mapping from disturbances to perception is difficult to model analytically. For example, learned control concepts can support trim-panel behavior or accelerate parameter selection in reduced-order models. However, the literature is still cautious: explainability, training data coverage, and certification suitability remain open issues for safety-critical aviation contexts \cite{wang2025deep}.
+
+From a systems perspective, data-driven methods are most useful when they are embedded in a physically interpretable framework. In other words, machine learning can support secondary-path estimation, fault detection, or parameter tuning, but the core safety-critical loop should remain bounded by transparent control logic and conservative validation procedures.
+
+\section{Synthesis and Research Gap}
+The literature points to a consistent research gap: a VIP cabin requires a solution that is localized, lightweight, adaptive, and operationally realistic. The most credible path is therefore a hybrid architecture that uses passive interior design to reduce the baseline noise floor and localized ANC to suppress low-frequency residuals at the passenger zone. Virtual sensing can expand the usable control region, while reduced-complexity adaptation keeps the implementation feasible on embedded hardware \cite{kuo1999active,misol2023design,mylonas2024virtual}.
+
+For the present competition, this suggests a design philosophy with four layers:
+\begin{enumerate}
+	\item identify the dominant low-frequency disturbance components,
+	\item define a compact control zone around the passenger or seat group,
+	\item use passive treatments to address broadband and structural noise,
+	\item apply adaptive ANC only where the expected perceptual benefit justifies the complexity.
+\end{enumerate}
+
+\section{Implications for the Competition Deliverable}
+For an academically convincing submission to Lufthansa Technik, the report should make the control assumptions explicit, define measurable performance metrics, and separate established literature from the team's own design proposal. A strong structure would present the problem statement, review the three solution families, justify the selected architecture, and then provide a transparent evaluation plan. That format is more defensible than a purely descriptive summary because it demonstrates that the design choice is grounded in the state of the art rather than in intuition alone.
+
+\section{Conclusion}
+The related work indicates that no single noise-control technique is sufficient for a VIP aircraft cabin. Passive elements are necessary but insufficient, active control is powerful but localized, and data-driven enhancements are promising but not yet decisive for certification-oriented deployment. The most professional and technically credible approach is a hybrid, seat- or zone-level solution supported by robust modelling and conservative adaptation. This chapter can therefore serve as the literature basis for a more detailed concept, simulation section, and implementation strategy.

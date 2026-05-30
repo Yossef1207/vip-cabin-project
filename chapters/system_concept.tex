@@ -1,0 +1,25 @@
+\chapter{System Concept}
+
+\section{Concept Overview}
+The proposed concept is a hybrid acoustic system for a VIP cabin zone. Passive interior elements provide broadband attenuation and structural damping, while a localized active control layer addresses the remaining low-frequency disturbance. This division of labor keeps the active system focused on the portion of the spectrum where it provides the highest value.
+
+\section{Architecture}
+A practical system can be organized into four blocks.
+\begin{enumerate}
+    \item A reference path that captures or predicts the incoming disturbance.
+    \item A controller that computes the anti-noise signal.
+    \item Secondary-path actuators and loudspeakers placed near the passenger zone.
+    \item Error sensing or virtual sensing to evaluate the local residual sound field.
+\end{enumerate}
+
+\section{Why This Architecture Fits the Task}
+This architecture is suitable for the competition because it is modular, scalable, and easy to explain in an academic report. It can be deployed around a specific VIP seating area instead of the full aircraft interior, which reduces hardware count and integration effort. It also provides a natural bridge between classical ANC literature and a premium-cabin design context.
+
+\section{Design Principles}
+The concept should obey the following principles.
+\begin{itemize}
+    \item Keep the control zone local and well-defined.
+    \item Use passive treatment to reduce the required active effort.
+    \item Favor low-order, computationally efficient adaptive control.
+    \item Design for maintainability, not only for peak laboratory performance.
+\end{itemize}

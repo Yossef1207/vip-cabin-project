@@ -1,0 +1,101 @@
+\documentclass[11pt,a4paper,headings=small]{scrreprt}
+
+% ------------------------------------------------------------
+% InnovAero Competition 2026 -- Academic Proposal Structure
+% ------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage{geometry}
+\geometry{left=25mm,right=25mm,top=25mm,bottom=28mm,headheight=14pt}
+
+\usepackage{amsmath,amssymb,amsfonts,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage{scrlayer-scrpage}
+
+\definecolor{accentblue}{HTML}{163A63}
+\definecolor{accentgray}{HTML}{5B6770}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=accentblue,
+    citecolor=accentblue,
+    urlcolor=accentblue,
+    pdftitle={VIP Aircraft Cabin Acoustic Comfort Enhancement},
+    pdfauthor={Yossef Al Buni and Leander Meggers},
+    pdfsubject={InnovAero Competition 2026},
+    pdfkeywords={active noise control, aircraft cabin, VIP cabin, acoustic comfort, Lufthansa Technik}
+}
+
+\setlist[itemize]{topsep=4pt,itemsep=2pt,parsep=0pt,leftmargin=1.6em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,parsep=0pt,leftmargin=1.8em}
+
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\ihead{InnovAero Competition 2026}
+\chead{}
+\ohead{\headmark}
+\ifoot{Academic proposal structure}
+\ofoot{\pagemark}
+\setkomafont{pageheadfoot}{\small\color{accentgray}}
+\setkomafont{disposition}{\bfseries\color{accentblue}}
+
+\title{VIP Aircraft Cabin Acoustic Comfort Enhancement}
+\subtitle{InnovAero Competition 2026 academic report structure}
+\author{Yossef Al Buni \\ Leander Meggers \\ Technische Universität Hamburg (TUHH) and NORDAKADEMIE Hochschule der Wirtschaft}
+\date{\today}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1.5cm}
+    {\Large\bfseries InnovAero Competition 2026\par}
+    \vspace{1.2cm}
+    {\huge\bfseries VIP Aircraft Cabin Acoustic Comfort Enhancement\par}
+    \vspace{0.8cm}
+    {\Large Academic report structure prepared for technical review\par}
+    \vspace{1.8cm}
+    \begin{tabular}{>{\bfseries}p{4cm}p{8.5cm}}
+        Team & SlowWaveAero \\
+        Authors & Yossef Al Buni; Leander Meggers \\
+        Affiliation & Technische Universität Hamburg (TUHH) and NORDAKADEMIE Hochschule der Wirtschaft \\
+        Client context & Lufthansa Technik / InnovAero Competition 2026 \\
+        Date & \today \\
+    \end{tabular}
+    \vfill
+    {\small This document is structured for direct integration into an academic report or proposal package.\par}
+\end{titlepage}
+
+\pagenumbering{Roman}
+\chapter*{Abstract}
+This report consolidates the literature and design logic most relevant to the InnovAero task of improving acoustic comfort in a VIP aircraft cabin. The focus is on methods that are technically defensible and implementation-oriented: active noise control, adaptive filtering, virtual sensing, cabin-specific acoustic constraints, and hybrid passive-active concepts. The resulting structure is intended to support an academically rigorous submission that can be extended with competition-specific calculations, design assumptions, and verification data.
+
+\tableofcontents
+\clearpage
+\listoftables
+\clearpage
+
+\pagenumbering{arabic}
+\input{chapters/introduction}
+\input{chapters/task_requirements}
+\input{chapters/related_work}
+\input{chapters/system_concept}
+\input{chapters/methodology}
+\input{chapters/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
